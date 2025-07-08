@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍄 Грибной навигатор</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    body { font-family: -apple-system, sans-serif; margin: 0; padding: 10px; }
+    #map { height: 80vh; width: 100%; border-radius: 10px; }
+    .filters { display: flex; gap: 10px; margin-bottom: 10px; }
+    select, button { padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>🍄 Грибные места</h1>
+  
+  <div class="filters">
+    <select id="mushroom-type">
+      <option value="all">Все грибы</option>
+      <option value="white">Белые грибы</option>
+      <option value="chanterelle">Лисички</option>
+    </select>
+    <button id="apply-filters">Поиск</button>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([53.9, 27.5], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    const mushrooms = [
+      { name: "Белый гриб", coords: [53.9, 27.6], type: "white" },
+      { name: "Лисички", coords: [53.8, 27.4], type: "chanterelle" }
+    ];
+
+    mushrooms.forEach(m => {
+      L.marker(m.coords)
+        .bindPopup(`<b>${m.name}</b>`)
+        .addTo(map);
+    });
+  </script>
+</body>
+</html>
